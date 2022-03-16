@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { Grid } from "@material-ui/core";
+import youtube from "./api/youtube";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          credit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Earn React
-        </a>
-      </header>
+      <Grid style={{ justifyContent: "center" }} container spacing={10}>
+        <Grid item-xs={11}>
+          <Grid container spacing={10}>
+            <Grid item xs={12}>
+              {/* {SearchBar} */}
+            </Grid>
+            <Grid item xs={8}>
+              {/* {VideodDetail} */}
+            </Grid>
+            <Grid item xs={4}>
+              {/* {VideoList} */}
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
     </div>
   );
 }
