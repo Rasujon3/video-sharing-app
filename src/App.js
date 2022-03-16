@@ -1,10 +1,14 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { Grid } from "@material-ui/core";
 import youtube from "./api/youtube";
 import SearchBar from "./components/SearchBar";
+import { useState } from "react";
+import VideoDetail from "./components/VideodDetail";
 
 function App() {
+  const [videos, setVideos] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState({ id: {}, snippet: {} });
+
   return (
     <div className="App">
       <Grid style={{ justifyContent: "center" }} container spacing={10}>
@@ -15,6 +19,7 @@ function App() {
             </Grid>
             <Grid item xs={8}>
               {/* {VideodDetail} */}
+              <VideoDetail video={selectedVideo} />
             </Grid>
             <Grid item xs={4}>
               {/* {VideoList} */}
@@ -24,16 +29,19 @@ function App() {
       </Grid>
     </div>
   );
-  async function handleSubmit(searchItem) {
-    const response = await youtube.get("search", {
+  async function handleSubmit(searchTerm) {
+    const {
+      data: { items: videos },
+    } = await youtube.get("search", {
       params: {
         part: "snippet",
         maxResults: 5,
         key: "AIzaSyDItzxlKK-NfduS4zlUQzCT2Vc0P2jJhzE",
-        q: searchItem,
+        q: searchTerm,
       },
     });
-    console.log(response.data.items);
+    setVideos(videos);
+    setSelectedVideo(videos[0]);
   }
 }
 
