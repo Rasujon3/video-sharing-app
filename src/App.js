@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { Grid } from "@material-ui/core";
 import youtube from "./api/youtube";
+import SearchBar from "./components/SearchBar";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
         <Grid item-xs={11}>
           <Grid container spacing={10}>
             <Grid item xs={12}>
-              {/* {SearchBar} */}
+              <SearchBar onSubmit={handleSubmit} />
             </Grid>
             <Grid item xs={8}>
               {/* {VideodDetail} */}
@@ -23,6 +24,17 @@ function App() {
       </Grid>
     </div>
   );
+  async function handleSubmit(searchItem) {
+    const response = await youtube.get("search", {
+      params: {
+        part: "snippet",
+        maxResults: 5,
+        key: "AIzaSyDItzxlKK-NfduS4zlUQzCT2Vc0P2jJhzE",
+        q: searchItem,
+      },
+    });
+    console.log(response.data.items);
+  }
 }
 
 export default App;
